@@ -101,12 +101,7 @@ class Widget {
     const labels = document.createElement('div');
 
     labels.className = 'gitcoin-widget__labels';
-    let tokenName = 'ETH';
-
-    if (b.token_name !== 'ETH') {
-      tokenName = b.token_name;
-    }
-    labels.innerHTML = `<div class="gitcoin-widget__label gitcoin-widget__label--eth">${b.value_true} ${tokenName}</div><div class="gitcoin-widget__label gitcoin-widget__label--usd">${b.value_in_usdt} USD</div>`;
+    labels.innerHTML = `<div class="gitcoin-widget__label gitcoin-widget__label--eth">${b.value_true} ${b.token_name}</div><div class="gitcoin-widget__label gitcoin-widget__label--usd">${b.value_in_usdt} USD</div>`;
     bounty.appendChild(labels);
     return bounty;
   }
