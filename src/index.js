@@ -10,7 +10,7 @@ class Widget {
     this.options.repository = this.el.dataset.repository || this.options.repository;
     this.options.orderBy = this.el.dataset['order-by'] || this.options.orderBy;
     this.options.limit = this.el.dataset['limit'] || this.options.limit;
-    fetch(`https://cors-anywhere.herokuapp.com/https://gitcoin.co/api/v0.1/bounties/?raw_data=${this.options.repository}&network=mainnet&coinbase=unknown&order_by=${this.orderBy()}&limit=${this.limit()}`)
+    fetch(`https://gitcoin.co/api/v0.1/bounties/?raw_data=${this.options.repository}&network=mainnet&coinbase=unknown&order_by=${this.orderBy()}&limit=${this.limit()}`)
       .then(response => response.json())
       .then(json => {
         this.data = json;
@@ -101,7 +101,12 @@ class Widget {
     const labels = document.createElement('div');
 
     labels.className = 'gitcoin-widget__labels';
-    labels.innerHTML = `<div class="gitcoin-widget__label gitcoin-widget__label--eth">${b.value_true} ETH</div><div class="gitcoin-widget__label gitcoin-widget__label--usd">${b.value_in_usdt} USD</div>`;
+    let tokenName = 'ETH';
+
+    if (b.token_name !== 'ETH') {
+      tokenName = b.token_name;
+    }
+    labels.innerHTML = `<div class="gitcoin-widget__label gitcoin-widget__label--eth">${b.value_true} ${tokenName}</div><div class="gitcoin-widget__label gitcoin-widget__label--usd">${b.value_in_usdt} USD</div>`;
     bounty.appendChild(labels);
     return bounty;
   }
